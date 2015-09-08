@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="whP-gf-Uak">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="wQg-tq-qST">
+            <objects>
+                <viewController id="whP-gf-Uak" customClass="SIViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="translated_content" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-4f-JzA">
+                                <rect key="frame" x="229" y="289" width="143" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="translated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0v3-vW-Qbg">
+                                <rect key="frame" x="262" y="328" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VeF-re-5UU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="EN" id="fnY-Qt-4qw">
+                                        <connections>
+                                            <action selector="changeEnglish:" destination="whP-gf-Uak" id="5jC-QP-Tn6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="b4C-0N-VgK"/>
+                                    <barButtonItem systemItem="done" id="irF-zD-44t"/>
+                                    <barButtonItem title="translated" id="prb-Zp-I3k"/>
+                                    <barButtonItem systemItem="cancel" id="ow3-pR-GXb"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RWO-zb-yOn"/>
+                                    <barButtonItem title="FR" id="kk8-hu-JHk">
+                                        <connections>
+                                            <action selector="changeFrench:" destination="whP-gf-Uak" id="bzM-9Q-pJu"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="0v3-vW-Qbg" secondAttribute="centerY" constant="-38.5" id="0vf-tx-T7Y"/>
+                            <constraint firstAttribute="centerX" secondItem="fIA-4f-JzA" secondAttribute="centerX" constant="-0.5" id="COY-Kb-W5t"/>
+                            <constraint firstItem="VeF-re-5UU" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="-20" id="Cyg-cR-Wfo"/>
+                            <constraint firstAttribute="centerY" secondItem="fIA-4f-JzA" secondAttribute="centerY" constant="0.5" id="Kx5-Vk-aM5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VeF-re-5UU" secondAttribute="trailing" constant="-16" id="MOL-LG-dFG"/>
+                            <constraint firstAttribute="centerX" secondItem="0v3-vW-Qbg" secondAttribute="centerX" constant="-0.5" id="N0a-tR-Xob"/>
+                            <constraint firstItem="VeF-re-5UU" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" constant="-16" id="R3x-m9-xnB"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="433"/>
+        </scene>
+    </scenes>
+</document>

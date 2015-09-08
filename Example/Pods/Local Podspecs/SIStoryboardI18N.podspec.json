@@ -1,0 +1,33 @@
+{
+  "name": "SIStoryboardI18N",
+  "version": "0.1.0",
+  "summary": "Storyboard Localization.",
+  "description": "",
+  "homepage": "https://github.com/controllerkit/SIStoryboardI18N",
+  "license": "MIT",
+  "authors": {
+    "jsambells": "controllerkit@jeffreysambells.com"
+  },
+  "source": {
+    "git": "https://github.com/controllerkit/SIStoryboardI18N.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "SIStoryboardI18N": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "CocoaLumberjack": [
+      "~> 2"
+    ],
+    "BlocksKit": [
+
+    ]
+  }
+}

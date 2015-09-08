@@ -1,0 +1,6 @@
+framework module SIStoryboardI18N {
+  umbrella header "SIStoryboardI18N-umbrella.h"
+
+  export *
+  module * { export * }
+}
