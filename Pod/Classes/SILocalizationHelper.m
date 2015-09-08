@@ -22,10 +22,16 @@
     }
     
     NSString *loc = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"AppleLanguages"] firstObject];
+    NSArray *deviceLang = [NSLocale preferredLanguages];
+    if (![deviceLang containsObject:loc]) {
+        loc = [deviceLang firstObject];
+    }
+    loc = [[loc componentsSeparatedByString:@"-"] firstObject];
     NSString *path = [[[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:loc] stringByDeletingLastPathComponent];
     if (!path) {
         path = [[[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:@"Base"] stringByDeletingLastPathComponent];
     }
+    
     NSBundle *bundle = [[NSBundle alloc] initWithPath:path];
     
     NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
