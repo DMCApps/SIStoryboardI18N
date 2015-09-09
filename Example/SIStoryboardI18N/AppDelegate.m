@@ -14,9 +14,9 @@
 #import <CocoaLumberjack/DDFileLogger.h>
 
 
-#import "SIAppDelegate.h"
+#import "AppDelegate.h"
 
-@implementation SIAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

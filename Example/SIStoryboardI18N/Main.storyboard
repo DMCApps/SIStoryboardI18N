@@ -8,7 +8,7 @@
         <!--examples_title-->
         <scene sceneID="cit-et-B5G">
             <objects>
-                <tableViewController id="iei-0n-qPj" sceneMemberID="viewController">
+                <tableViewController id="iei-0n-qPj" customClass="ViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="n2u-EJ-XRe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,6 +23,9 @@
                                         <segment title="segment_en"/>
                                         <segment title="segment_fr"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="toggleLanguage:" destination="iei-0n-qPj" eventType="valueChanged" id="yL3-H6-emp"/>
+                                    </connections>
                                 </segmentedControl>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
