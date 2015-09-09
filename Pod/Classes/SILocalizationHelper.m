@@ -8,6 +8,13 @@
 
 #import "SIStoryboardI18N.h"
 
+typedef enum : NSUInteger {
+    SILocalizationTransformNone,
+    SILocalizationTransformUppercase,
+    SILocalizationTransformLowercase,
+    SILocalizationTransformTitleCase,
+} SILocalizationTransform;
+
 @implementation SILocalizationHelper
 + (NSString *)si_localizeString:(NSString *)key
 {
@@ -15,9 +22,16 @@
         return key;
     }
     
-    BOOL upperCase = NO;
-    upperCase = [key hasPrefix:@"uc:"];
-    if (upperCase) {
+    SILocalizationTransform transform = SILocalizationTransformNone;
+    if([key hasPrefix:@"uc:"]) {
+        transform = SILocalizationTransformUppercase;
+    } else if([key hasPrefix:@"lc:"]) {
+        transform = SILocalizationTransformLowercase;
+    } else if([key hasPrefix:@"tc:"]) {
+        transform = SILocalizationTransformTitleCase;
+    }
+    
+    if (transform != SILocalizationTransformNone) {
         key = [key substringFromIndex:3];
     }
     
@@ -36,11 +50,16 @@
     
     NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
     
-    if (upperCase) {
-        return translated.uppercaseString;
+    switch (transform) {
+        default:
+            return translated;
+        case SILocalizationTransformUppercase:
+            return translated.uppercaseString;
+        case SILocalizationTransformLowercase:
+            return translated.lowercaseString;
+        case SILocalizationTransformTitleCase:
+            return translated.capitalizedString;
     }
-    
-    return translated;
 }
 
 + (void)si_setLocalization:(NSString *)locale
