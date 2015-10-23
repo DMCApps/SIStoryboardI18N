@@ -8,7 +8,7 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #else
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
@@ -30,95 +30,60 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 @implementation UIView (StoryboardI18N)
 
-- (BOOL)si_isSubviewOfControlClass:(Class)controlClass
+- (NSString *)si_localizedTextForKey:(const void *)key inObject:(id)unknownSelf current:(NSString *)current
 {
-    UIView *superview = self.superview;
-    do {
-        if ([superview isKindOfClass:controlClass]) {
-            return YES;
-        }
-        superview = superview.superview;
-    } while (superview);
-    return false;
-}
-
-- (NSString *)si_storeOriginal:(NSString *)text forKey:(NSString *)key
-{
-    if (![text hasPrefix:@"_"]) {
-        NSMutableDictionary *originalDict = [[self si_originalContent] mutableCopy];
-        if (!originalDict) {
-            originalDict = [NSMutableDictionary new];
-        }
-        if (![originalDict[key] hasPrefix:@"_"]) {
-            if (!originalDict[key]) {
-                originalDict[key] = text;
-                [self si_setOriginalContent:originalDict];
+    NSString *originalText = [unknownSelf si_originalContent];
+    if (![current hasPrefix:@"_"]) {
+        DDLogVerbose(@"Current text has no prefix: %@", current);
+        if (![originalText hasPrefix:@"_"]) {
+            if (!originalText) {
+                [unknownSelf si_setOriginalContent:current];
+                originalText = [unknownSelf si_originalContent];
+                DDLogVerbose(@"No original text set. Set to: %@", originalText);
             }
-            NSString *localized = StoryboardI18NLocalizedString(originalDict[key]);
-            DDLogDebug(@"\ttext selector: %@: %@", originalDict[key], localized);
-            return localized;
+            if (![originalText hasPrefix:@"_"]) {
+                DDLogVerbose(@"Original text doesn not have _. Translate: %@", originalText);
+                NSString *localized = StoryboardI18NLocalizedString(originalText);
+                DDLogVerbose(@"\t%@: %@", originalText, localized);
+                return localized;
+            }
+        } else {
+            DDLogVerbose(@"Skipping Dynamic Key: '%@' current value '%@'", originalText, current);
+        }
+    } else  {
+        DDLogVerbose(@"Current text has prefix: %@", current);
+        if (!originalText) {
+            [unknownSelf si_setOriginalContent:current];
+            originalText = [unknownSelf si_originalContent];
+            DDLogVerbose(@"No original text for _ key. Leave as %@", originalText);
+        } else {
+            DDLogVerbose(@"Original text already exists. Skipping. %@", originalText);
         }
     }
     return nil;
 }
 
+static void *const siKEY_ButtonUIControlStateNormal = (void *)&siKEY_ButtonUIControlStateNormal;
+static void *const siKEY_ButtonUIControlStateSelected = (void *)&siKEY_ButtonUIControlStateSelected;
+static void *const siKEY_ButtonUIControlStateHighlighted = (void *)&siKEY_ButtonUIControlStateHighlighted;
+static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIControlStateDisabled;
+
 - (void)si_localizeStrings
 {
+    DDLogVerbose(@"StoryboardI18N Localizing view: %@", self);
     
     if ([self si_isContentCustomized]) {
+        DDLogVerbose(@"Customized: %@", self);
         return;
+    } else {
+        DDLogVerbose(@"Not Customized: %@", self);
     }
-    
-    if ([self si_isSubviewOfControlClass:[UISegmentedControl class]]) {
-        return;
-    }
-    
-    DDLogDebug(@"StoryboardI18N Localizing view: %@", self);
-    
-    
-    if ([self isKindOfClass:[UISegmentedControl class]]) {
-        UISegmentedControl *segmentedControl = (id)self;
-        for (NSUInteger i = 0; i < segmentedControl.numberOfSegments; i++) {
-            [segmentedControl setTitle:StoryboardI18NLocalizedString([segmentedControl titleForSegmentAtIndex:i]) forSegmentAtIndex:i];
-        }
-        [segmentedControl setNeedsUpdateConstraints];
-        [segmentedControl setNeedsLayout];
-        return;
-    }
-    
-    if ([self isKindOfClass:[UIButton class]]) {
-        UIButton *button = (id)self;
-        NSString *title = nil;
-        title = [button titleForState:UIControlStateNormal];
-        if ([title respondsToSelector:@selector(si_containsString:)]) {
-            if (![title hasPrefix:@"_"]) {
-                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateNormal];
-                [button.titleLabel setNeedsLayout];
-            }
-            title = [button titleForState:UIControlStateSelected];
-            if (![title hasPrefix:@"_"]) {
-                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateSelected];
-                [button.titleLabel setNeedsLayout];
-            }
-            title = [button titleForState:UIControlStateHighlighted];
-            if (![title hasPrefix:@"_"]) {
-                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateHighlighted];
-                [button.titleLabel setNeedsLayout];
-            }
-            title = [button titleForState:UIControlStateDisabled];
-            if (![title hasPrefix:@"_"]) {
-                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateDisabled];
-                [button.titleLabel setNeedsLayout];
-            }
-        }
-        return;
-    }
-    
     
     id unknownSelf = (id)self;
     
     if ([unknownSelf respondsToSelector:@selector(text)] && [unknownSelf respondsToSelector:@selector(setText:)]) {
-        NSString *localized = [(UIView *)unknownSelf si_storeOriginal:[unknownSelf text] forKey:@"text"];
+        DDLogVerbose(@"Responds to text: %@", self);
+        NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
         if (localized) {
             [unknownSelf setText:localized];
             [unknownSelf setNeedsLayout];
@@ -126,13 +91,62 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
     
     if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
-        NSString *localized = [(UIView *)unknownSelf si_storeOriginal:[unknownSelf placeholder] forKey:@"placeholder"];
-        if (localized) {
-            [unknownSelf setPlaceholder:localized];
-            [unknownSelf setNeedsLayout];
+        DDLogVerbose(@"Responds to placeholder: %@", self);
+        if ([[unknownSelf placeholder] respondsToSelector:@selector(si_containsString:)]) {
+            if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
+                [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
+                [unknownSelf setNeedsLayout];
+            }
         }
     }
     
+    if ([self isKindOfClass:[UISegmentedControl class]]) {
+        DDLogVerbose(@"Is segmented control: %@", self);
+        UISegmentedControl *segmentedControl = (id)self;
+        for (NSUInteger i = 0; i < segmentedControl.numberOfSegments; i++) {
+            [segmentedControl setTitle:StoryboardI18NLocalizedString([segmentedControl titleForSegmentAtIndex:i]) forSegmentAtIndex:i];
+        }
+    }
+    
+    
+    if ([self isKindOfClass:[UIButton class]]) {
+        DDLogVerbose(@"Is button control: %@", self);
+        UIButton *button = (id)self;
+        NSString *normalTitle = [button titleForState:UIControlStateNormal];
+        
+        NSString *title = normalTitle;
+        NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateNormal]];
+        if (localized) {
+            [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateNormal];
+            [button.titleLabel setNeedsLayout];
+        }
+        
+        title = [button titleForState:UIControlStateSelected];
+        if (![normalTitle isEqualToString:title]) {
+            NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateSelected]];
+            if (localized) {
+                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateSelected];
+                [button.titleLabel setNeedsLayout];
+            }
+        }
+        title = [button titleForState:UIControlStateHighlighted];
+        if (![normalTitle isEqualToString:title]) {
+            NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateHighlighted]];
+            if (localized) {
+                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateHighlighted];
+                [button.titleLabel setNeedsLayout];
+            }
+        }
+        title = [button titleForState:UIControlStateDisabled];
+        if (![normalTitle isEqualToString:title]) {
+            NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateDisabled]];
+            if (localized) {
+                [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateDisabled];
+                [button.titleLabel setNeedsLayout];
+            }
+        }
+        
+    }
     
     // don't call subviews here as this method is called on ALL views.
 }
@@ -189,7 +203,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
     
-    NSLog(@"Swizzled: %@ %s with %s", self, sel_getName(swizzledSelector), sel_getName(originalSelector));
+    DDLogVerbose(@"Swizzled: %@ %s with %s", self, sel_getName(swizzledSelector), sel_getName(originalSelector));
 }
 
 @end

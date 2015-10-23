@@ -13,6 +13,9 @@
 -(void)si_setOriginalContent:(id)content;
 -(id)si_originalContent;
 
+- (void)si_setOriginalContent:(id)content withKey:(const void *)key;
+- (id)si_originalContentForKey:(const void *)key;
+
 -(void)si_setContentCustomized:(BOOL)customized;
 -(BOOL)si_isContentCustomized;
 

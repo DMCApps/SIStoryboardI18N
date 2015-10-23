@@ -76,9 +76,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (void)si_swizzledViewDidLoad
 {
     // Now call the original...
-    [self si_swizzledViewDidLoad];
     [self si_localizeCommonProperties];
     [self si_localizeViewHeirachy];
+    [self si_swizzledViewDidLoad];
 }
 
 + (void)load
