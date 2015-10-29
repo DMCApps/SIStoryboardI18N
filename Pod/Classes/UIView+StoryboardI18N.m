@@ -96,24 +96,6 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     
     id unknownSelf = (id)self;
     
-    if ([unknownSelf respondsToSelector:@selector(text)] && [unknownSelf respondsToSelector:@selector(setText:)]) {
-        DDLogVerbose(@"Responds to text: %@", self);
-        NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
-        if (localized) {
-            [unknownSelf setText:localized];
-            [unknownSelf setNeedsLayout];
-        }
-    }
-    
-    if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
-        DDLogVerbose(@"Responds to placeholder: %@", self);
-        if ([[unknownSelf placeholder] respondsToSelector:@selector(si_containsString:)]) {
-            if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
-                [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
-                [unknownSelf setNeedsLayout];
-            }
-        }
-    }
     
     if ([self isKindOfClass:[UISegmentedControl class]]) {
         DDLogVerbose(@"Is segmented control: %@", self);
@@ -121,8 +103,8 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         for (NSUInteger i = 0; i < segmentedControl.numberOfSegments; i++) {
             [segmentedControl setTitle:StoryboardI18NLocalizedString([segmentedControl titleForSegmentAtIndex:i]) forSegmentAtIndex:i];
         }
+        return;
     }
-    
     
     if ([self isKindOfClass:[UIButton class]]) {
         DDLogVerbose(@"Is button control: %@", self);
@@ -160,8 +142,28 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
                 [button.titleLabel setNeedsLayout];
             }
         }
-        
+        return;
     }
+    
+    if ([unknownSelf respondsToSelector:@selector(text)] && [unknownSelf respondsToSelector:@selector(setText:)] && ![unknownSelf isKindOfClass:NSClassFromString(@"UIButtonLabel")]) {
+        DDLogVerbose(@"Responds to text: %@", self);
+        NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
+        if (localized) {
+            [unknownSelf setText:localized];
+            [unknownSelf setNeedsLayout];
+        }
+    }
+    
+    if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
+        DDLogVerbose(@"Responds to placeholder: %@", self);
+        if ([[unknownSelf placeholder] respondsToSelector:@selector(si_containsString:)]) {
+            if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
+                [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
+                [unknownSelf setNeedsLayout];
+            }
+        }
+    }
+
     
     // don't call subviews here as this method is called on ALL views.
 }
