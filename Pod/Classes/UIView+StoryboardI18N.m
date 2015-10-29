@@ -23,7 +23,7 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #else
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
@@ -145,15 +145,6 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         return;
     }
     
-    if ([unknownSelf respondsToSelector:@selector(text)] && [unknownSelf respondsToSelector:@selector(setText:)] && ![unknownSelf isKindOfClass:NSClassFromString(@"UIButtonLabel")]) {
-        DDLogVerbose(@"Responds to text: %@", self);
-        NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
-        if (localized) {
-            [unknownSelf setText:localized];
-            [unknownSelf setNeedsLayout];
-        }
-    }
-    
     if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
         DDLogVerbose(@"Responds to placeholder: %@", self);
         if ([[unknownSelf placeholder] respondsToSelector:@selector(si_containsString:)]) {
@@ -163,9 +154,40 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
             }
         }
     }
+    
+    if ([self isKindOfClass:[UITextField class]] || [self isKindOfClass:[UITextView class]]) {
+        DDLogVerbose(@"Responds to text: %@", self);
+        return;
+    }
+    
+    if ([unknownSelf respondsToSelector:@selector(text)]
+        && [unknownSelf respondsToSelector:@selector(setText:)]
+        && ![self si_view:unknownSelf isChildOfClass:[UIButton class]]
+        && ![self si_view:unknownSelf isChildOfClass:[UITextField class]]
+        && ![self si_view:unknownSelf isChildOfClass:[UITextView class]]) {
+        DDLogVerbose(@"Responds to text: %@", self);
+        NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
+        if (localized) {
+            [unknownSelf setText:localized];
+            [unknownSelf setNeedsLayout];
+        }
+    }
+    
+    
 
     
     // don't call subviews here as this method is called on ALL views.
+}
+
+- (BOOL)si_view:(UIView *)view isChildOfClass:(Class)class
+{
+    while (view.superview) {
+        if ([view.superview isKindOfClass:class]) {
+            return YES;
+        }
+        view = view.superview;
+    }
+    return NO;
 }
 
 - (void)si_localizeStringsAndSubviews

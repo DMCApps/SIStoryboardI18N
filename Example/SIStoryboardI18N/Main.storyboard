@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--examples_title-->
@@ -181,6 +182,42 @@
                                                 </label>
                                             </subviews>
                                             <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fE8-QQ-sbG">
+                                        <rect key="frame" x="0.0" y="372" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fE8-QQ-sbG" id="Mxv-cA-NxY">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="example" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZT-A8-dwl">
+                                                    <rect key="frame" x="402" y="7" width="183" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="183" id="mW1-Ow-TOe"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="text_input" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neJ-9M-sE1">
+                                                    <rect key="frame" x="15" y="10" width="134" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="neJ-9M-sE1" firstAttribute="top" secondItem="Mxv-cA-NxY" secondAttribute="topMargin" constant="2" id="9hg-iY-WDD"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gZT-A8-dwl" secondAttribute="bottom" constant="-2" id="VIR-it-eQk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="neJ-9M-sE1" secondAttribute="bottom" constant="4" id="rZa-vT-GWV"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gZT-A8-dwl" secondAttribute="trailing" constant="7" id="rnU-dF-d4z"/>
+                                                <constraint firstItem="gZT-A8-dwl" firstAttribute="top" secondItem="Mxv-cA-NxY" secondAttribute="topMargin" constant="-1" id="xSA-ma-Wzf"/>
+                                                <constraint firstItem="neJ-9M-sE1" firstAttribute="leading" secondItem="Mxv-cA-NxY" secondAttribute="leadingMargin" constant="7" id="zUA-MA-VNN"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
