@@ -23,7 +23,7 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #else
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
@@ -47,14 +47,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (NSString *)si_localizedTextForKey:(const void *)key inObject:(id)unknownSelf current:(NSString *)current
 {
+    
+    if (![current isKindOfClass:[NSString class]]) {
+        // not a string.
+        return nil;
+    }
+    
     NSString *originalText = [unknownSelf si_originalContent];
     if (![current hasPrefix:@"_"]) {
         DDLogVerbose(@"Current text has no prefix: %@", current);
         if (![originalText hasPrefix:@"_"]) {
             if (!originalText) {
-                [unknownSelf si_setOriginalContent:current];
-                originalText = [unknownSelf si_originalContent];
-                DDLogVerbose(@"No original text set. Set to: %@", originalText);
+                if (current.length == 0) {
+                    [unknownSelf si_setOriginalContent:@"_null"];
+                    originalText = [unknownSelf si_originalContent];
+                    DDLogVerbose(@"No original text or current text (empty). Set to _null so that localization doesn't override");
+                } else {
+                    [unknownSelf si_setOriginalContent:current];
+                    originalText = [unknownSelf si_originalContent];
+                    DDLogVerbose(@"No original text set. Set to: %@", originalText);
+                }
             }
             if (![originalText hasPrefix:@"_"]) {
                 DDLogVerbose(@"Original text doesn not have _. Translate: %@", originalText);
@@ -156,7 +168,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     }
     
     if ([self isKindOfClass:[UITextField class]] || [self isKindOfClass:[UITextView class]]) {
-        DDLogVerbose(@"Responds to text: %@", self);
+        DDLogVerbose(@"Ignoring: %@", self);
         return;
     }
     
@@ -174,7 +186,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     }
     
     
-
+    
     
     // don't call subviews here as this method is called on ALL views.
 }
