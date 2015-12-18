@@ -76,6 +76,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             }
         } else {
             DDLogVerbose(@"Skipping Dynamic Key: '%@' current value '%@'", originalText, current);
+            return current;
         }
     } else  {
         DDLogVerbose(@"Current text has prefix: %@", current);
@@ -159,7 +160,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     
     if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
         DDLogVerbose(@"Responds to placeholder: %@", self);
-        if ([[unknownSelf placeholder] respondsToSelector:@selector(si_containsString:)]) {
+        if ([[unknownSelf placeholder] respondsToSelector:@selector(hasPrefix:)]) {
             if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
                 [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
                 [unknownSelf setNeedsLayout];
@@ -167,7 +168,10 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         }
     }
     
-    if ([self isKindOfClass:[UITextField class]] || [self isKindOfClass:[UITextView class]]) {
+    if ([self isKindOfClass:[UITextField class]]
+        || [self isKindOfClass:[UITextView class]]
+        || [self isKindOfClass:NSClassFromString(@"UITextFieldLabel")]
+        || [self isKindOfClass:NSClassFromString(@"UIFieldEditor")]) {
         DDLogVerbose(@"Ignoring: %@", self);
         return;
     }
@@ -179,9 +183,12 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         && ![self si_view:unknownSelf isChildOfClass:[UITextView class]]) {
         DDLogVerbose(@"Responds to text: %@", self);
         NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
-        if (localized) {
+        if (![localized isEqualToString:[unknownSelf text]]) {
+            DDLogVerbose(@"Setting text on %@ to text: %@", unknownSelf, localized);
             [unknownSelf setText:localized];
             [unknownSelf setNeedsLayout];
+        } else {
+            DDLogVerbose(@"Text already correct %@ (%@)", unknownSelf, localized);
         }
     }
     
@@ -204,6 +211,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 
 - (void)si_localizeStringsAndSubviews
 {
+    DDLogVerbose(@"StoryboardI18N si_localizeStringsAndSubviews: %@", self);
     [self si_localizeStrings];
     if (!self.subviews || self.subviews.count == 0)
         return;
@@ -220,12 +228,20 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     [self si_localizeStrings];
 }
 
+- (void)si_swizzledWillMoveToSuperview:(UIView *)superview
+{
+    [self si_swizzledWillMoveToSuperview:superview];
+    [self si_localizeStrings];
+}
+
 + (void)load
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [[self class] swizzelSelector:@selector(willMoveToWindow:)
                                  with:@selector(si_swizzledWillMoveToWindow:)];
+        [[self class] swizzelSelector:@selector(willMoveToSuperview:)
+                                 with:@selector(si_swizzledWillMoveToSuperview:)];
     });
 }
 
