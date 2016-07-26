@@ -16,6 +16,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)si_localizeCommonProperties
 {
+    
+    if (![[SIStoryboardI18N sharedManager] viewControllerIsEnabled:self]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing controller (exlcuded via class): %@", self);
+        return;
+    }
+    
     if (self.title) {
         self.title = StoryboardI18NLocalizedString(self.title);
     }

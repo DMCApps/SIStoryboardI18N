@@ -11,4 +11,8 @@
 @interface UIView (StoryboardI18N)
 - (void)si_localizeStrings;
 - (void)si_localizeStringsAndSubviews;
+
+-(UIViewController*)si_viewController;
+-(UIViewController *)si_topMostController;
+-(UIView*)si_superviewOfClassType:(Class)classType;
 @end

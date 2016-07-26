@@ -32,6 +32,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)si_localizeStrings
 {
+ 
+    if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        return;
+    }
+
     DDLogDebug(@"StoryboardI18N Localizing view: %@", self);
     
     if ([self si_isContentCustomized]) {
@@ -114,6 +120,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)si_localizeStringsAndSubviews
 {
+    if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        return;
+    }
+
     [self si_localizeStrings];
     if (!self.subviews || self.subviews.count == 0)
         return;
@@ -165,6 +176,70 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
     
     NSLog(@"Swizzled: %@ %s with %s", self, sel_getName(swizzledSelector), sel_getName(originalSelector));
+}
+
+
+-(UIViewController*)si_viewController
+{
+    UIResponder *nextResponder =  self;
+    
+    do
+    {
+        nextResponder = [nextResponder nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+            return (UIViewController*)nextResponder;
+        
+    } while (nextResponder != nil);
+    
+    return nil;
+}
+
+-(UIViewController *)si_topMostController
+{
+    NSMutableArray *controllersHierarchy = [[NSMutableArray alloc] init];
+    
+    UIViewController *topController = self.window.rootViewController;
+    
+    if (topController)
+    {
+        [controllersHierarchy addObject:topController];
+    }
+    
+    while ([topController presentedViewController]) {
+        
+        topController = [topController presentedViewController];
+        [controllersHierarchy addObject:topController];
+    }
+    
+    UIResponder *matchController = [self si_viewController];
+    
+    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
+    {
+        do
+        {
+            matchController = [matchController nextResponder];
+            
+        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
+    }
+    
+    return (UIViewController*)matchController;
+}
+
+-(UIView*)si_superviewOfClassType:(Class)classType
+{
+    UIView *superview = self.superview;
+    
+    while (superview)
+    {
+        if ([superview isKindOfClass:classType])
+        {
+            return superview;
+        }
+        else    superview = superview.superview;
+    }
+    
+    return nil;
 }
 
 @end

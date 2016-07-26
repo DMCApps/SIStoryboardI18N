@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 #define StoryboardI18NLocalizedString(key) \
-[SILocalizationHelper si_localizeString:(key)]
+[SILocalizationHelper si_localizeString:((key))]
+
+#define SILocalizedString(key) \
+[SILocalizationHelper si_localizeString:((key))]
 
 @interface SILocalizationHelper : NSObject
 + (NSString *)si_localizeString:(NSString *)key;
