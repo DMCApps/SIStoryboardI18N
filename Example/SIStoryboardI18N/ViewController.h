@@ -8,6 +8,6 @@
 
 @import UIKit;
 
-@interface SIViewController : UIViewController
+@interface ViewController : UITableViewController
 
 @end

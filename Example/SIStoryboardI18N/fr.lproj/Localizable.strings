@@ -3,5 +3,28 @@
   SIStoryboardI18N
 */
 
-"translated_content" = "Ceci est la traduction français";
-"translated" = "Français";
+"example" = "Français";
+"examples_tab" = "Français";
+"examples_title" = "Français";
+
+"basics" = "Français";
+"transform" = "Français";
+
+
+"segment_en" = "Anglais";
+"segment_fr" = "Français";
+
+
+"by_key" = "Français";
+"example_content" = "Français";
+
+"prefix_to_ignore" = "Français";
+
+"to_uppercase" = "Français";
+"to_lowercase" = "Français";
+"to_title_case" = "Français";
+
+
+/* Native? Just include the strings as normal. */
+"Cancel" = "Français";
+"Save" = "Français";

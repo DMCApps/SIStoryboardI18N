@@ -3,5 +3,28 @@
   SIStoryboardI18N
 */
 
-"translated_content" = "This is the english translation";
-"translated" = "English";
+"example" = "Example";
+"examples_tab" = "Examples";
+"examples_title" = "Examples";
+
+"basics" = "Basic Usage";
+"transform" = "Text Transformations";
+
+
+"segment_en" = "English";
+"segment_fr" = "French";
+
+
+"by_key" = "By Key!";
+"example_content" = "Example Content";
+
+"prefix_to_ignore" = "prefix with _ to ignore";
+
+"to_uppercase" = "To UPPERCASE";
+"to_lowercase" = "to lowercase";
+"to_title_case" = "To Title Case";
+
+
+/* Native? Just include the strings as normal. */
+"Cancel" = "Cancel";
+"Save" = "Save";
