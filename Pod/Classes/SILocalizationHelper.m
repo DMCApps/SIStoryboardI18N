@@ -30,9 +30,15 @@ typedef enum : NSUInteger {
     SILocalizationTransformTitleCase,
 } SILocalizationTransform;
 
+static NSMutableDictionary *languageBundles;
+
 @implementation SILocalizationHelper
 + (NSString *)si_localizeString:(NSString *)key
 {
+    if (!languageBundles) {
+        languageBundles = [NSMutableDictionary new];
+    }
+    
     if ([key hasPrefix:@"_"]) {
         return key;
     }
@@ -50,18 +56,7 @@ typedef enum : NSUInteger {
         key = [key substringFromIndex:3];
     }
     
-    NSString *loc = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"AppleLanguages"] firstObject];
-    NSArray *deviceLang = [NSLocale preferredLanguages];
-    if (![deviceLang containsObject:loc]) {
-        loc = [deviceLang firstObject];
-    }
-    loc = [[loc componentsSeparatedByString:@"-"] firstObject];
-    NSString *path = [[[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:loc] stringByDeletingLastPathComponent];
-    if (!path) {
-        path = [[[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:@"Base"] stringByDeletingLastPathComponent];
-    }
-    
-    NSBundle *bundle = [[NSBundle alloc] initWithPath:path];
+    NSBundle *bundle = [SILocalizationHelper si_findBundleForPreferredLanguage];
     
     NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
     
@@ -92,6 +87,107 @@ typedef enum : NSUInteger {
     // TODO use si_setLocalizationNeedsUpdate
     // TODO use si_updateLocalization
     [rootView si_localizeStringsAndSubviews];
+}
+
+/**
+ *  Looks through the preferred languages of the device for the first available Localizable.strings.
+ *  If there is no Localizable.strings is found for the preferred languages, the Base Localizable.strings will be checked for.
+ *  Furthermore if no Base Localizable.strings exists, we look for en Localizable.strings
+ *
+ *  @return
+ *      Bundle for the given language
+ *      nil if not found
+ */
++ (NSBundle *)si_findBundleForPreferredLanguage {
+    
+    // Find the first language code in the preferredLanguages that has a Localizable.strings file.
+    NSArray *langCodes = [NSLocale preferredLanguages];
+    NSString *langCode = @"";
+    for (NSString *langCodeWithRegion in langCodes) {
+        langCode = [SILocalizationHelper si_bundleForLangCode:langCodeWithRegion];
+        if (langCode) {
+            break;
+        }
+    }
+    
+    // None of the users preferred languages exist. Attempt Base Localizable.strings.
+    if ([SILocalizationHelper si_bundleLangCodeExists:@"Base"] || [SILocalizationHelper si_generateBundleForLangCode:@"Base"]) {
+        langCode = @"Base";
+    }
+    
+    // Base doesn't exists. Try English
+    if ([SILocalizationHelper si_bundleLangCodeExists:@"en"] || [SILocalizationHelper si_generateBundleForLangCode:@"en"]) {
+        langCode = @"en";
+    }
+    
+    return languageBundles[langCode];
+}
+
+/**
+ *  This method attempts to create a bundle for the given language. If the bundle is found it is added to the languageBundles and the
+ *  language code is returned.
+ *
+ *  @param
+ *      langCode - The language code with region to search for.
+ *
+ *  @return
+ *      language code if bundle is generated
+ *      else nil
+ */
++ (NSString *)si_bundleForLangCode:(NSString *)langCode {
+    if ([SILocalizationHelper si_bundleLangCodeExists:langCode] || [SILocalizationHelper si_generateBundleForLangCode:langCode]) {
+        return langCode;
+    }
+    else {
+        NSRange rangeOfRegionStart = [langCode rangeOfString:@"-" options:NSBackwardsSearch];
+        langCode = [langCode substringToIndex:rangeOfRegionStart.location];
+        
+        if ([SILocalizationHelper si_bundleLangCodeExists:langCode] || [SILocalizationHelper si_generateBundleForLangCode:langCode]) {
+            return langCode;
+        }
+    }
+    
+    return nil;
+}
+
+/**
+ *  Attempts to create the bundle and add it to the cache for the given language code. If the current language code doesn't exist,
+ *  then we remove the language code and check for the language code itself.
+ *
+ *  @param
+ *      langCode -> The language code (including region) to search for a Localizable.strings file
+ *
+ *  @return
+ *      YES -> Bundle is cached OR created.
+ *      NO -> Bundle could not be found or created.
+ */
++ (BOOL)si_generateBundleForLangCode:(NSString *)langCode {
+    if ([SILocalizationHelper si_bundleLangCodeExists:langCode]) {
+        return YES;
+    }
+    
+    NSString *path = [[[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:langCode] stringByDeletingLastPathComponent];
+    
+    if (path) {
+        languageBundles[langCode] = [[NSBundle alloc] initWithPath:path];
+        return YES;
+    }
+    
+    return NO;
+}
+
+/**
+ *  Check if the given langCode exists in the cache
+ *
+ *  @param
+ *      langCode -> Language code to look for in the cache
+ *
+ *  @return
+ *      YES -> Exists in the Cache
+ *      NO -> Doesn't exist in the Cache
+ */
++ (BOOL)si_bundleLangCodeExists:(NSString *)langCode {
+    return languageBundles[langCode];
 }
 
 @end

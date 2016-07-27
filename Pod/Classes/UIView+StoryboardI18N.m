@@ -50,7 +50,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
  
     if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
         DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
-        return;
+        return nil;
     }
 
     DDLogDebug(@"StoryboardI18N Localizing view: %@", self);
