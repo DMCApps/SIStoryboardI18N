@@ -110,14 +110,17 @@ static NSMutableDictionary *languageBundles;
         }
     }
     
-    // None of the users preferred languages exist. Attempt Base Localizable.strings.
-    if ([SILocalizationHelper si_bundleLangCodeExists:@"Base"] || [SILocalizationHelper si_generateBundleForLangCode:@"Base"]) {
-        langCode = @"Base";
-    }
-    
-    // Base doesn't exists. Try English
-    if ([SILocalizationHelper si_bundleLangCodeExists:@"en"] || [SILocalizationHelper si_generateBundleForLangCode:@"en"]) {
-        langCode = @"en";
+    // None of the users preferred languages exist. 
+    if (!langCode) {
+        // Attempt Base Localizable.strings.
+        if ([SILocalizationHelper si_bundleLangCodeExists:@"Base"] || [SILocalizationHelper si_generateBundleForLangCode:@"Base"]) {
+            langCode = @"Base";
+        }
+        
+        // Base doesn't exists. Try English
+        if ([SILocalizationHelper si_bundleLangCodeExists:@"en"] || [SILocalizationHelper si_generateBundleForLangCode:@"en"]) {
+            langCode = @"en";
+        }
     }
     
     return languageBundles[langCode];
