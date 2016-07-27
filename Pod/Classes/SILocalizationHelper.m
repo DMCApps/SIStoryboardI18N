@@ -23,6 +23,9 @@
 
 #import "SIStoryboardI18N.h"
 
+#define DEFAULT_LANG_CODE_BASE @"Base"
+#define DEFAULT_LANG_CODE_EN @"en"
+
 typedef enum : NSUInteger {
     SILocalizationTransformNone,
     SILocalizationTransformUppercase,
@@ -102,7 +105,7 @@ static NSMutableDictionary *languageBundles;
     
     // Find the first language code in the preferredLanguages that has a Localizable.strings file.
     NSArray *langCodes = [NSLocale preferredLanguages];
-    NSString *langCode = @"";
+    NSString *langCode = nil;
     for (NSString *langCodeWithRegion in langCodes) {
         langCode = [SILocalizationHelper si_bundleForLangCode:langCodeWithRegion];
         if (langCode) {
@@ -110,17 +113,14 @@ static NSMutableDictionary *languageBundles;
         }
     }
     
-    // None of the users preferred languages exist. 
-    if (!langCode) {
-        // Attempt Base Localizable.strings.
-        if ([SILocalizationHelper si_bundleLangCodeExists:@"Base"] || [SILocalizationHelper si_generateBundleForLangCode:@"Base"]) {
-            langCode = @"Base";
-        }
-        
-        // Base doesn't exists. Try English
-        if ([SILocalizationHelper si_bundleLangCodeExists:@"en"] || [SILocalizationHelper si_generateBundleForLangCode:@"en"]) {
-            langCode = @"en";
-        }
+    // Attempt Base Localizable.strings.
+    if (!langCode && ([SILocalizationHelper si_bundleLangCodeExists:DEFAULT_LANG_CODE_BASE] || [SILocalizationHelper si_generateBundleForLangCode:DEFAULT_LANG_CODE_BASE])) {
+        langCode = DEFAULT_LANG_CODE_BASE;
+    }
+    
+    // Base doesn't exists. Try English
+    if (!langCode && ([SILocalizationHelper si_bundleLangCodeExists:DEFAULT_LANG_CODE_EN] || [SILocalizationHelper si_generateBundleForLangCode:DEFAULT_LANG_CODE_EN])) {
+        langCode = DEFAULT_LANG_CODE_EN;
     }
     
     return languageBundles[langCode];
