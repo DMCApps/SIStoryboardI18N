@@ -141,10 +141,12 @@ static NSMutableDictionary *languageBundles;
     if ([SILocalizationHelper si_bundleLangCodeExists:langCode] || [SILocalizationHelper si_generateBundleForLangCode:langCode]) {
         return langCode;
     }
-    else {
+    // Check if the language has a region on the end of it.
+    // If it doesn't there is no need for this secondary check since the primary check already looked for the main langCode in the bundle.
+    else if ([langCode containsString:@"-"]) {
         NSRange rangeOfRegionStart = [langCode rangeOfString:@"-" options:NSBackwardsSearch];
         langCode = [langCode substringToIndex:rangeOfRegionStart.location];
-        
+    
         if ([SILocalizationHelper si_bundleLangCodeExists:langCode] || [SILocalizationHelper si_generateBundleForLangCode:langCode]) {
             return langCode;
         }
