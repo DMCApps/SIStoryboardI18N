@@ -112,6 +112,19 @@
 {
     BOOL enable = _enable;
     
+    if (enable)
+    {
+        //If view is kind of disable viewController class, then assuming it's disable.
+        for (Class disabledClass in _disabledClasses)
+        {
+            if ([subview isKindOfClass:disabledClass])
+            {
+                return NO;
+            }
+        }
+    }
+    
+    
     UIViewController *viewController = [subview si_viewController];
     
     if (viewController)
