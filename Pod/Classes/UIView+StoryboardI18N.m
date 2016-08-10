@@ -48,11 +48,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (NSString *)si_localizedTextForKey:(const void *)key inObject:(id)unknownSelf current:(NSString *)current
 {
  
-    if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
-        return;
-    }
-
     DDLogDebug(@"StoryboardI18N Localizing view: %@", self);
     
     if (![current isKindOfClass:[NSString class]]) {
@@ -105,6 +100,12 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 
 - (void)si_localizeStrings
 {
+    
+    if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        return;
+    }
+
     DDLogVerbose(@"StoryboardI18N Localizing view: %@", self);
     
     if ([self si_isContentCustomized]) {
@@ -135,7 +136,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateNormal]];
         if (localized) {
             [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateNormal];
-            [button.titleLabel setNeedsLayout];
+            [self si_notifyOfChanges:button.titleLabel];
         }
         
         title = [button titleForState:UIControlStateSelected];
@@ -143,7 +144,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
             NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateSelected]];
             if (localized) {
                 [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateSelected];
-                [button.titleLabel setNeedsLayout];
+                [self si_notifyOfChanges:button.titleLabel];
             }
         }
         title = [button titleForState:UIControlStateHighlighted];
@@ -151,7 +152,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
             NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateHighlighted]];
             if (localized) {
                 [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateHighlighted];
-                [button.titleLabel setNeedsLayout];
+                [self si_notifyOfChanges:button.titleLabel];
             }
         }
         title = [button titleForState:UIControlStateDisabled];
@@ -159,7 +160,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
             NSString *localized = [self si_localizedTextForKey:siKEY_ButtonUIControlStateNormal inObject:button current:[button titleForState:UIControlStateDisabled]];
             if (localized) {
                 [button setTitle:StoryboardI18NLocalizedString(title) forState:UIControlStateDisabled];
-                [button.titleLabel setNeedsLayout];
+                [self si_notifyOfChanges:button.titleLabel];
             }
         }
         return;
@@ -170,7 +171,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         if ([[unknownSelf placeholder] respondsToSelector:@selector(hasPrefix:)]) {
             if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
                 [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
-                [unknownSelf setNeedsLayout];
+                [self si_notifyOfChanges:unknownSelf];
             }
         }
     }
@@ -193,7 +194,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         if (![localized isEqualToString:[unknownSelf text]]) {
             DDLogVerbose(@"Setting text on %@ to text: %@", unknownSelf, localized);
             [unknownSelf setText:localized];
-            [unknownSelf setNeedsLayout];
+            [self si_notifyOfChanges:unknownSelf];
         } else {
             DDLogVerbose(@"Text already correct %@ (%@)", unknownSelf, localized);
         }
@@ -348,6 +349,11 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     }
     
     return nil;
+}
+
+- (void)si_notifyOfChanges:(UIView *)view {
+    [view setNeedsLayout];
+    [view setNeedsUpdateConstraints];
 }
 
 @end
