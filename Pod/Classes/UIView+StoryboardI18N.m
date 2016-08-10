@@ -48,7 +48,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (NSString *)si_localizedTextForKey:(const void *)key inObject:(id)unknownSelf current:(NSString *)current
 {
  
-    DDLogDebug(@"StoryboardI18N Localizing view: %@", self);
+    if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        return nil;
+    }
     
     if (![current isKindOfClass:[NSString class]]) {
         // not a string.
