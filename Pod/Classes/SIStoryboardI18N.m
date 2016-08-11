@@ -59,7 +59,17 @@
 //            //  Registering for status bar frame change notification
 //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
             
-            strongSelf.disabledClasses = [[NSMutableSet alloc] init];
+            NSArray *disable = nil;
+            disable = @[NSClassFromString(@"UIRemoteKeyboardWindow"),
+                        NSClassFromString(@"UIKeyboardEmojiCollectionInputView"),
+                        NSClassFromString(@"UIKBKeyplaneView"),
+                        NSClassFromString(@"UIKBBackgroundView"),
+                        NSClassFromString(@"UITableViewWrapperView"),
+                        NSClassFromString(@"UIInputSwitcherTableView"),
+                        [UIImageView class]];
+            strongSelf.disabledClasses = [[NSMutableSet alloc] initWithArray:disable];
+            
+            
             strongSelf.enabledClasses = [[NSMutableSet alloc] init];
             
         });
@@ -110,18 +120,34 @@
 
 -(BOOL)subviewIsEnabled:(UIView *)subview
 {
+    
+    /*
+     if ([NSStringFromClass([self class]) hasPrefix:@"UIKeyboard"]
+     || [NSStringFromClass([self class]) hasPrefix:@"UIKB"]) {
+     DDLogVerbose(@"UIKeyboard class Ignoring: %@", self);
+     return;
+     }
+     */
+    
     BOOL enable = _enable;
     
     if (enable)
     {
         //If view is kind of disable viewController class, then assuming it's disable.
-        for (Class disabledClass in _disabledClasses)
-        {
-            if ([subview isKindOfClass:disabledClass])
-            {
+        if ([_disabledClasses containsObject:[subview class]]) {
+            
+            return NO;
+        }
+        
+        //If superview is kind of disable viewController class, then assuming it's disable.
+        UIView *s = subview.superview;
+        while (s) {
+            if ([_disabledClasses containsObject:[s class]]) {
                 return NO;
             }
+            s = s.superview;
         }
+        
     }
     
     

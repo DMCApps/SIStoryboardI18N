@@ -23,7 +23,7 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #else
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
@@ -108,7 +108,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
         return;
     }
-
+    
     DDLogVerbose(@"StoryboardI18N Localizing view: %@", self);
     
     if ([self si_isContentCustomized]) {
@@ -194,8 +194,8 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         && ![self si_view:unknownSelf isChildOfClass:[UITextView class]]) {
         DDLogVerbose(@"Responds to text: %@", self);
         NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
-        if (![localized isEqualToString:[unknownSelf text]]) {
-            DDLogVerbose(@"Setting text on %@ to text: %@", unknownSelf, localized);
+        if ((localized || [unknownSelf text]) && ![localized isEqualToString:[unknownSelf text]]) {
+            DDLogVerbose(@"Setting text on %@ (text: %@) to text: %@", unknownSelf, [unknownSelf text], localized);
             [unknownSelf setText:localized];
             [self si_notifyOfChanges:unknownSelf];
         } else {
@@ -242,12 +242,20 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 - (void)si_swizzledWillMoveToWindow:(UIWindow *)window
 {
     [self si_swizzledWillMoveToWindow:window];
+    if (!window || ![[SIStoryboardI18N sharedManager] subviewIsEnabled:window]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", window);
+        return;
+    }
     [self si_localizeStrings];
 }
 
 - (void)si_swizzledWillMoveToSuperview:(UIView *)superview
 {
     [self si_swizzledWillMoveToSuperview:superview];
+    if (!superview || ![[SIStoryboardI18N sharedManager] subviewIsEnabled:superview]) {
+        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", superview);
+        return;
+    }
     [self si_localizeStrings];
 }
 
