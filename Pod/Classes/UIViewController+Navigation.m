@@ -87,6 +87,7 @@ static void *const KEY_DISABLE_CUSTOM_NAVIGATION_TITLE = (void *)&KEY_DISABLE_CU
     UIStoryboard *storyboard = nil;
     if (!storyBoardName) {
         storyboard = self.storyboard;
+        storyBoardName = @"";
     } else {
         storyboard = [UIStoryboard storyboardWithName:storyBoardName bundle:nil];
     }
