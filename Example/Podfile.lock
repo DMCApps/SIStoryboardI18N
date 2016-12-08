@@ -14,22 +14,13 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CocoaLumberjack (2.0.1):
-    - CocoaLumberjack/Default (= 2.0.1)
-    - CocoaLumberjack/Extensions (= 2.0.1)
-  - CocoaLumberjack/Core (2.0.1)
-  - CocoaLumberjack/Default (2.0.1):
-    - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.1):
-    - CocoaLumberjack/Default
-  - FBSnapshotTestCase (2.0.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.4)
-  - FBSnapshotTestCase/Core (2.0.4)
-  - FBSnapshotTestCase/SwiftSupport (2.0.4):
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - SIStoryboardI18N (0.1.0):
     - BlocksKit
-    - CocoaLumberjack (~> 2)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
@@ -41,8 +32,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
-  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
-  FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
-  SIStoryboardI18N: 74cad6e4b85be6700711c8c422161fcf72edfb14
+  FBSnapshotTestCase: '094f9f314decbabe373b87cc339bea235a63e07a'
+  SIStoryboardI18N: deaecc2f0f4e979c69d7afc5be1504f4f93fcec5
 
-COCOAPODS: 0.38.0
+PODFILE CHECKSUM: a92f61bd88541063ef4a637a21cd3d7c872b6372
+
+COCOAPODS: 1.1.1

@@ -21,13 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
-#endif
-
 #import "SIStoryboardI18N.h"
 #import <BlocksKit/BlocksKit.h>
 
@@ -35,7 +28,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)si_setOriginalContent:(id)content
 {
-    DDLogDebug(@"Set original text to: %@", content);
+    //NSLog(@"Set original text to: %@", content);
     [self bk_associateCopyOfValue:content withKey:@selector(si_originalContent)];
 }
 
@@ -46,7 +39,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)si_setOriginalContent:(id)content withKey:(const void *)key
 {
-    DDLogDebug(@"Set original text with key to: %@", content);
+    //NSLog(@"Set original text with key to: %@", content);
     [self bk_associateCopyOfValue:content withKey:key];
 }
 

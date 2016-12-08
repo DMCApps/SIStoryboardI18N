@@ -2,7 +2,7 @@
   "name": "SIStoryboardI18N",
   "version": "0.1.0",
   "summary": "Storyboard Localization.",
-  "description": "",
+  "description": "Localize StoryBoard automatically.",
   "homepage": "https://github.com/controllerkit/SIStoryboardI18N",
   "license": "MIT",
   "authors": {
@@ -23,9 +23,6 @@
     ]
   },
   "dependencies": {
-    "CocoaLumberjack": [
-      "~> 2"
-    ],
     "BlocksKit": [
 
     ]

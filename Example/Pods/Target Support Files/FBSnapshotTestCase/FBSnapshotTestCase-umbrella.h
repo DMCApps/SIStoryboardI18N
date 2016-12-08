@@ -1,10 +1,7 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#endif
 
-#import "FBSnapshotTestCase.h"
-#import "FBSnapshotTestCasePlatform.h"
-#import "UIImage+Compare.h"
-#import "UIImage+Diff.h"
-#import "UIImage+Snapshot.h"
 #import "FBSnapshotTestCase.h"
 #import "FBSnapshotTestCasePlatform.h"
 #import "FBSnapshotTestController.h"

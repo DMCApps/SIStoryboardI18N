@@ -21,13 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
-#endif
-
 #import <objc/runtime.h>
 
 #import "SIStoryboardI18N.h"
@@ -38,7 +31,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 {
     
     if (![[SIStoryboardI18N sharedManager] viewControllerIsEnabled:self]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing controller (exlcuded via class): %@", self);
+        //NSLog(@"StoryboardI18N Not Localizing controller (exlcuded via class): %@", self);
         return;
     }
     
@@ -46,7 +39,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.title = StoryboardI18NLocalizedString(self.title);
     }
     if (self.navigationItem) {
-        DDLogDebug(@"StoryboardI18N nav item: %@", self.navigationItem);
+        //NSLog(@"StoryboardI18N nav item: %@", self.navigationItem);
 
         if (self.navigationItem.title.length > 0) {
             self.navigationItem.title = StoryboardI18NLocalizedString(self.navigationItem.title);

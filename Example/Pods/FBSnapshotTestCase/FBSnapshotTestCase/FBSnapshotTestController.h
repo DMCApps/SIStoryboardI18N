@@ -29,6 +29,21 @@ extern NSString *const FBSnapshotTestControllerErrorDomain;
 extern NSString *const FBReferenceImageFilePathKey;
 
 /**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBReferenceImageKey;
+
+/**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBCapturedImageKey;
+
+/**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBDiffedImageKey;
+
+/**
  Provides the heavy-lifting for FBSnapshotTestCase. It loads and saves images, along with performing the actual pixel-
  by-pixel comparison of images.
  Instances are initialized with the test class, and directories to read and write to.
@@ -39,6 +54,12 @@ extern NSString *const FBReferenceImageFilePathKey;
  Record snapshots.
  */
 @property (readwrite, nonatomic, assign) BOOL recordMode;
+
+/**
+ When @c YES appends the name of the device model and OS to the snapshot file name.
+ The default value is @c NO.
+ */
+@property (readwrite, nonatomic, assign, getter=isDeviceAgnostic) BOOL deviceAgnostic;
 
 /**
  Uses drawViewHierarchyInRect:afterScreenUpdates: to draw the image instead of renderInContext:

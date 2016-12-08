@@ -21,13 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
-#endif
-
 #import <objc/runtime.h>
 
 #import "SIStoryboardI18N.h"
@@ -49,7 +42,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 {
  
     if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        //NSLog(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
         return nil;
     }
     
@@ -60,37 +53,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     
     NSString *originalText = [unknownSelf si_originalContent];
     if (![current hasPrefix:@"_"]) {
-        DDLogVerbose(@"Current text has no prefix: %@", current);
+        //DDLogVerbose(@"Current text has no prefix: %@", current);
         if (![originalText hasPrefix:@"_"]) {
             if (!originalText) {
                 if (current.length == 0) {
                     [unknownSelf si_setOriginalContent:@"_null"];
                     originalText = [unknownSelf si_originalContent];
-                    DDLogVerbose(@"No original text or current text (empty). Set to _null so that localization doesn't override");
+                    //DDLogVerbose(@"No original text or current text (empty). Set to _null so that localization doesn't override");
                 } else {
                     [unknownSelf si_setOriginalContent:current];
                     originalText = [unknownSelf si_originalContent];
-                    DDLogVerbose(@"No original text set. Set to: %@", originalText);
+                    //DDLogVerbose(@"No original text set. Set to: %@", originalText);
                 }
             }
             if (![originalText hasPrefix:@"_"]) {
-                DDLogVerbose(@"Original text doesn not have _. Translate: %@", originalText);
+                //DDLogVerbose(@"Original text doesn not have _. Translate: %@", originalText);
                 NSString *localized = StoryboardI18NLocalizedString(originalText);
-                DDLogVerbose(@"\t%@: %@", originalText, localized);
+                //DDLogVerbose(@"\t%@: %@", originalText, localized);
                 return localized;
             }
         } else {
-            DDLogVerbose(@"Skipping Dynamic Key: '%@' current value '%@'", originalText, current);
+            //DDLogVerbose(@"Skipping Dynamic Key: '%@' current value '%@'", originalText, current);
             return current;
         }
     } else  {
-        DDLogVerbose(@"Current text has prefix: %@", current);
+        //DDLogVerbose(@"Current text has prefix: %@", current);
         if (!originalText) {
             [unknownSelf si_setOriginalContent:current];
             originalText = [unknownSelf si_originalContent];
-            DDLogVerbose(@"No original text for _ key. Leave as %@", originalText);
+            //DDLogVerbose(@"No original text for _ key. Leave as %@", originalText);
         } else {
-            DDLogVerbose(@"Original text already exists. Skipping. %@", originalText);
+            //DDLogVerbose(@"Original text already exists. Skipping. %@", originalText);
         }
     }
     return nil;
@@ -105,24 +98,24 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 {
     
     if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        //NSLog(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
         return;
     }
     
-    DDLogVerbose(@"StoryboardI18N Localizing view: %@", self);
+    //DDLogVerbose(@"StoryboardI18N Localizing view: %@", self);
     
     if ([self si_isContentCustomized]) {
-        DDLogVerbose(@"Customized: %@", self);
+        //DDLogVerbose(@"Customized: %@", self);
         return;
     } else {
-        DDLogVerbose(@"Not Customized: %@", self);
+        //DDLogVerbose(@"Not Customized: %@", self);
     }
     
     id unknownSelf = (id)self;
     
     
     if ([self isKindOfClass:[UISegmentedControl class]]) {
-        DDLogVerbose(@"Is segmented control: %@", self);
+        //DDLogVerbose(@"Is segmented control: %@", self);
         UISegmentedControl *segmentedControl = (id)self;
         for (NSUInteger i = 0; i < segmentedControl.numberOfSegments; i++) {
             [segmentedControl setTitle:StoryboardI18NLocalizedString([segmentedControl titleForSegmentAtIndex:i]) forSegmentAtIndex:i];
@@ -131,7 +124,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     }
     
     if ([self isKindOfClass:[UIButton class]]) {
-        DDLogVerbose(@"Is button control: %@", self);
+        //DDLogVerbose(@"Is button control: %@", self);
         UIButton *button = (id)self;
         NSString *normalTitle = [button titleForState:UIControlStateNormal];
         
@@ -170,7 +163,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
     }
     
     if ([unknownSelf respondsToSelector:@selector(placeholder)] && [unknownSelf respondsToSelector:@selector(setPlaceholder:)]) {
-        DDLogVerbose(@"Responds to placeholder: %@", self);
+        //DDLogVerbose(@"Responds to placeholder: %@", self);
         if ([[unknownSelf placeholder] respondsToSelector:@selector(hasPrefix:)]) {
             if (![[unknownSelf placeholder] hasPrefix:@"_"]) {
                 [unknownSelf setPlaceholder:StoryboardI18NLocalizedString([unknownSelf placeholder])];
@@ -183,7 +176,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         || [self isKindOfClass:[UITextView class]]
         || [self isKindOfClass:NSClassFromString(@"UITextFieldLabel")]
         || [self isKindOfClass:NSClassFromString(@"UIFieldEditor")]) {
-        DDLogVerbose(@"Ignoring: %@", self);
+        //DDLogVerbose(@"Ignoring: %@", self);
         return;
     }
     
@@ -192,14 +185,14 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         && ![self si_view:unknownSelf isChildOfClass:[UIButton class]]
         && ![self si_view:unknownSelf isChildOfClass:[UITextField class]]
         && ![self si_view:unknownSelf isChildOfClass:[UITextView class]]) {
-        DDLogVerbose(@"Responds to text: %@", self);
+        //DDLogVerbose(@"Responds to text: %@", self);
         NSString *localized = [self si_localizedTextForKey:@selector(text) inObject:unknownSelf current:[unknownSelf text]];
         if ((localized || [unknownSelf text]) && ![localized isEqualToString:[unknownSelf text]]) {
-            DDLogVerbose(@"Setting text on %@ (text: %@) to text: %@", unknownSelf, [unknownSelf text], localized);
+            //DDLogVerbose(@"Setting text on %@ (text: %@) to text: %@", unknownSelf, [unknownSelf text], localized);
             [unknownSelf setText:localized];
             [self si_notifyOfChanges:unknownSelf];
         } else {
-            DDLogVerbose(@"Text already correct %@ (%@)", unknownSelf, localized);
+            //DDLogVerbose(@"Text already correct %@ (%@)", unknownSelf, localized);
         }
     }
     
@@ -223,11 +216,11 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 - (void)si_localizeStringsAndSubviews
 {
     if (![[SIStoryboardI18N sharedManager] subviewIsEnabled:self]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
+        //NSLog(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", self);
         return;
     }
 
-    DDLogVerbose(@"StoryboardI18N si_localizeStringsAndSubviews: %@", self);
+    //DDLogVerbose(@"StoryboardI18N si_localizeStringsAndSubviews: %@", self);
     
     [self si_localizeStrings];
     if (!self.subviews || self.subviews.count == 0)
@@ -243,7 +236,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 {
     [self si_swizzledWillMoveToWindow:window];
     if (!window || ![[SIStoryboardI18N sharedManager] subviewIsEnabled:window]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", window);
+        //NSLog(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", window);
         return;
     }
     [self si_localizeStrings];
@@ -253,7 +246,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
 {
     [self si_swizzledWillMoveToSuperview:superview];
     if (!superview || ![[SIStoryboardI18N sharedManager] subviewIsEnabled:superview]) {
-        DDLogDebug(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", superview);
+        //NSLog(@"StoryboardI18N Not Localizing view (exlcuded via class): %@", superview);
         return;
     }
     [self si_localizeStrings];
@@ -295,7 +288,7 @@ static void *const siKEY_ButtonUIControlStateDisabled = (void *)&siKEY_ButtonUIC
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
     
-    DDLogVerbose(@"Swizzled: %@ %s with %s", self, sel_getName(swizzledSelector), sel_getName(originalSelector));
+    //DDLogVerbose(@"Swizzled: %@ %s with %s", self, sel_getName(swizzledSelector), sel_getName(originalSelector));
 }
 
 
