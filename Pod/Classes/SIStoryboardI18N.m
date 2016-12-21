@@ -13,6 +13,7 @@
 
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledClasses;
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledClasses;
+@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<NSString *> *searchTables;
 
 @end
 
@@ -71,7 +72,9 @@
             
             
             strongSelf.enabledClasses = [[NSMutableSet alloc] init];
-            
+
+            strongSelf.searchTables = [[NSMutableSet alloc] init];
+
         });
     }
     return self;

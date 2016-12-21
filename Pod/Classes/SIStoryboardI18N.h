@@ -55,6 +55,11 @@
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *enabledClasses;
 
 /**
+ List of localizations table to be searched in proder of preference. By default Localizable will be searched FIRST, followed by these.
+ */
+@property(nonatomic, strong, nonnull, readonly) NSMutableSet<NSString *> *searchTables;
+
+/**
  Unavailable. Please use sharedManager method
  */
 -(nonnull instancetype)init NS_UNAVAILABLE;

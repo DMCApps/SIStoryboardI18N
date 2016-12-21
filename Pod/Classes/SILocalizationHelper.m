@@ -61,7 +61,17 @@ static NSMutableDictionary *languageBundles;
     
     NSBundle *bundle = [SILocalizationHelper si_findBundleForPreferredLanguage];
     
-    NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
+    __block NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
+    
+    if (!translated || translated.length == 0 || [key isEqualToString:translated]) {
+        [[SIStoryboardI18N sharedManager].searchTables enumerateObjectsUsingBlock:^(NSString * _Nonnull table, BOOL * _Nonnull stop) {
+            translated = NSLocalizedStringFromTableInBundle(key, table, bundle, @"StoryboardI18N");
+            if (![key isEqualToString:translated]) {
+                *stop = YES;
+            }
+        }];
+    }
+    
     
     switch (transform) {
         default:
