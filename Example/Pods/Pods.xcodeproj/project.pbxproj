@@ -45,6 +45,8 @@
 		48458F42E795C7EF7A312F07C514DF66 /* UIGestureRecognizer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F50B4D13147869C95BAC5FEC1EA511BC /* UIGestureRecognizer+BlocksKit.m */; };
 		4B63E2681D612BA7D845FC0347CD4DF3 /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F48931D792D63C930346B645DBC3A8 /* UIControl+BlocksKit.m */; };
 		4D226F87AD6747CAA7DEB8FAC83EA417 /* UIAlertView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AD37399C9B001E1FA52EDF0FCC6623 /* UIAlertView+BlocksKit.m */; };
+		4D5EA009245C826D004C74EE /* NSObject+BKAssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D5EA007245C826D004C74EE /* NSObject+BKAssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D5EA00A245C826D004C74EE /* NSObject+BKAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5EA008245C826D004C74EE /* NSObject+BKAssociatedObjects.m */; };
 		4E26A00D40D6FF8A5F361732C4C9749D /* UIControl+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F46128067C6856E04C4FBB38EB5B97E7 /* UIControl+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		506D761F91EC3583789A837C559972FE /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 631ADB3AEB3B322B64DF21305893F789 /* FBSnapshotTestCase-dummy.m */; };
 		55886C7A0CEB215388FCC83B043C4E23 /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 683B9A8F04090A025CD5CB3734BAAC20 /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -189,9 +191,9 @@
 		0378A26F6BD511DDE5679CED87845E10 /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
 		054B6B5179C83828CD34592B29B70EA8 /* NSMutableSet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+BlocksKit.m"; path = "BlocksKit/Core/NSMutableSet+BlocksKit.m"; sourceTree = "<group>"; };
 		0A82C406773BA85417F897EBE1BF5A41 /* UIGestureRecognizer+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIGestureRecognizer+BlocksKit.h"; path = "BlocksKit/UIKit/UIGestureRecognizer+BlocksKit.h"; sourceTree = "<group>"; };
-		10A7A0A72F5BB4501030DD1FE12D8E12 /* BlocksKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = BlocksKit.modulemap; sourceTree = "<group>"; };
+		10A7A0A72F5BB4501030DD1FE12D8E12 /* BlocksKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = BlocksKit.modulemap; sourceTree = "<group>"; };
 		10C139C0296F5416A06DBD4C7A644107 /* Pods-SIStoryboardI18N_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SIStoryboardI18N_Example.release.xcconfig"; sourceTree = "<group>"; };
-		1483766802A341C35A1E2F65260B0084 /* Pods-SIStoryboardI18N_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SIStoryboardI18N_Example.modulemap"; sourceTree = "<group>"; };
+		1483766802A341C35A1E2F65260B0084 /* Pods-SIStoryboardI18N_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SIStoryboardI18N_Example.modulemap"; sourceTree = "<group>"; };
 		15645CCA545484FEF5D08F726B84A00D /* BlocksKit+MessageUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BlocksKit+MessageUI.h"; path = "BlocksKit/BlocksKit+MessageUI.h"; sourceTree = "<group>"; };
 		15B4579E5616666A55FC922AB97E91BB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		16904EF90B61EBAD4705701A2F0AC995 /* A2BlockInvocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = A2BlockInvocation.h; path = BlocksKit/DynamicDelegate/A2BlockInvocation.h; sourceTree = "<group>"; };
@@ -208,10 +210,10 @@
 		27F13861DB1AA7C30AB9BD04FA823313 /* Pods-SIStoryboardI18N_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SIStoryboardI18N_Example-umbrella.h"; sourceTree = "<group>"; };
 		2831BDDC37E03F8A9DDA37DC73AA3D9D /* NSObject+A2DynamicDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+A2DynamicDelegate.m"; path = "BlocksKit/DynamicDelegate/NSObject+A2DynamicDelegate.m"; sourceTree = "<group>"; };
 		294905B2E0EFDD078B1BFE22388FC6CA /* SILocalizationHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SILocalizationHelper.h; sourceTree = "<group>"; };
-		2B628E9820FD8323E43337804CA9EBD2 /* Pods_SIStoryboardI18N_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SIStoryboardI18N_Example.framework; path = "Pods-SIStoryboardI18N_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B942E9F1D05CF742E08664796872D87 /* Pods-SIStoryboardI18N_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SIStoryboardI18N_Tests.modulemap"; sourceTree = "<group>"; };
+		2B628E9820FD8323E43337804CA9EBD2 /* Pods_SIStoryboardI18N_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SIStoryboardI18N_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B942E9F1D05CF742E08664796872D87 /* Pods-SIStoryboardI18N_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SIStoryboardI18N_Tests.modulemap"; sourceTree = "<group>"; };
 		2CB0B29EB28AA7074EDFF1AE0896C1B3 /* SIStoryboardI18N.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SIStoryboardI18N.m; sourceTree = "<group>"; };
-		2D76E86F99EB57AB3CADD72AB0B0B89C /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase.framework; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D76E86F99EB57AB3CADD72AB0B0B89C /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E80E01BDA7F595D44226D658AA70B0F /* NSObject+A2BlockDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+A2BlockDelegate.h"; path = "BlocksKit/DynamicDelegate/NSObject+A2BlockDelegate.h"; sourceTree = "<group>"; };
 		2EB1A9832078E02F1B622F3179EBFFD8 /* NSMutableSet+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+BlocksKit.h"; path = "BlocksKit/Core/NSMutableSet+BlocksKit.h"; sourceTree = "<group>"; };
 		307CCCD8F7D2C4865C9138B48C25CFC8 /* NSSet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSSet+BlocksKit.m"; path = "BlocksKit/Core/NSSet+BlocksKit.m"; sourceTree = "<group>"; };
@@ -233,6 +235,8 @@
 		481F4BFF7F0D899329D5B3B3E32A5C6A /* Pods-SIStoryboardI18N_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SIStoryboardI18N_Tests-umbrella.h"; sourceTree = "<group>"; };
 		48FDD2537221C79E574873CD0D6385E3 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = A2DynamicDelegate.m; path = BlocksKit/DynamicDelegate/A2DynamicDelegate.m; sourceTree = "<group>"; };
 		4915DB3B0B5E22806917FB6A84398761 /* NSTimer+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSTimer+BlocksKit.h"; path = "BlocksKit/Core/NSTimer+BlocksKit.h"; sourceTree = "<group>"; };
+		4D5EA007245C826D004C74EE /* NSObject+BKAssociatedObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BKAssociatedObjects.h"; sourceTree = "<group>"; };
+		4D5EA008245C826D004C74EE /* NSObject+BKAssociatedObjects.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BKAssociatedObjects.m"; sourceTree = "<group>"; };
 		5251A4C909ED60475F756C4013BA492E /* UIImage+Compare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compare.m"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.m"; sourceTree = "<group>"; };
 		52F9F19EA64C74D06270CD03AD7FED26 /* NSObject+BKBlockObservation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+BKBlockObservation.h"; path = "BlocksKit/Core/NSObject+BKBlockObservation.h"; sourceTree = "<group>"; };
 		5598C4E7DD2E1C67C27838EB6E771EA6 /* UIViewController+StoryboardI18N.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+StoryboardI18N.m"; sourceTree = "<group>"; };
@@ -241,7 +245,7 @@
 		595BDF383112E60CB07120999D49E2AC /* NSMutableArray+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+BlocksKit.m"; path = "BlocksKit/Core/NSMutableArray+BlocksKit.m"; sourceTree = "<group>"; };
 		5DB3FE8EFDA2FD57DBD3150B86DD6EB0 /* SILocalizationHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SILocalizationHelper.m; sourceTree = "<group>"; };
 		5ED63743287B00D58AF88D3DF5D5AF47 /* Pods-SIStoryboardI18N_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SIStoryboardI18N_Example-frameworks.sh"; sourceTree = "<group>"; };
-		5F6AAB56612BAFA4CD15854D4087CE69 /* SIStoryboardI18N.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SIStoryboardI18N.bundle; path = SIStoryboardI18N.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F6AAB56612BAFA4CD15854D4087CE69 /* SIStoryboardI18N.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SIStoryboardI18N.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		631ADB3AEB3B322B64DF21305893F789 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
 		6606570A9B93D165DFB439A00C36B9A2 /* UIBarButtonItem+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+BlocksKit.m"; path = "BlocksKit/UIKit/UIBarButtonItem+BlocksKit.m"; sourceTree = "<group>"; };
 		66D85B50C72FDD3FD52A92E24F65680D /* UIViewController+Navigation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Navigation.m"; sourceTree = "<group>"; };
@@ -258,19 +262,19 @@
 		7C6D7FCE41F5B819188A5E29D8740521 /* UITextField+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextField+BlocksKit.h"; path = "BlocksKit/UIKit/UITextField+BlocksKit.h"; sourceTree = "<group>"; };
 		862EF79EA86E0F8AFE3D071B5FA9A910 /* Pods-SIStoryboardI18N_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SIStoryboardI18N_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		886C6F5E7C6958CBCBB11A1074487528 /* Pods-SIStoryboardI18N_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SIStoryboardI18N_Example-resources.sh"; sourceTree = "<group>"; };
-		898F3655AD51FFF3825744192B3DE51E /* SIStoryboardI18N.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SIStoryboardI18N.framework; path = SIStoryboardI18N.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		898F3655AD51FFF3825744192B3DE51E /* SIStoryboardI18N.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SIStoryboardI18N.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C1FDE3527C0C558F4A953B7509A35C /* SIStoryboardI18N-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SIStoryboardI18N-dummy.m"; sourceTree = "<group>"; };
 		8E12F6E9CEBFAA858A44B7EB44CBC2CB /* NSObject+BKAssociatedObjects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+BKAssociatedObjects.m"; path = "BlocksKit/Core/NSObject+BKAssociatedObjects.m"; sourceTree = "<group>"; };
 		8EE43B48A6AC5A4858DF3F315E29954E /* NSOrderedSet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSOrderedSet+BlocksKit.m"; path = "BlocksKit/Core/NSOrderedSet+BlocksKit.m"; sourceTree = "<group>"; };
 		8F696412FCB2F00FEDD6C916682F874D /* BlocksKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BlocksKit.xcconfig; sourceTree = "<group>"; };
 		931EB859A09F03F41DB11B93C68999E4 /* A2BlockInvocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = A2BlockInvocation.m; path = BlocksKit/DynamicDelegate/A2BlockInvocation.m; sourceTree = "<group>"; };
 		931F789E47E1AD22124344EDACB08EC0 /* NSMutableIndexSet+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableIndexSet+BlocksKit.h"; path = "BlocksKit/Core/NSMutableIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93F31061512EE6500A82078CFF7E8936 /* NSObject+BKBlockExecution.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+BKBlockExecution.h"; path = "BlocksKit/Core/NSObject+BKBlockExecution.h"; sourceTree = "<group>"; };
 		997F5F2ED88253E4A222F84AAFBC3149 /* NSObject+A2DynamicDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+A2DynamicDelegate.h"; path = "BlocksKit/DynamicDelegate/NSObject+A2DynamicDelegate.h"; sourceTree = "<group>"; };
 		99E48CB2E913384010543EADCF036344 /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIPopoverController+BlocksKit.m"; path = "BlocksKit/UIKit/UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
 		9C358BE36C9AF770C0A2AE3894B471BD /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
-		A01FE7EEDFC2ECF208BE313514AF19AC /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BlocksKit.framework; path = BlocksKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01FE7EEDFC2ECF208BE313514AF19AC /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A11B530237BC3DC21E43DE5BF1C870DB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1807D8611325D3DB8EA0CADB47EAF6F /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActionSheet+BlocksKit.m"; path = "BlocksKit/UIKit/UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
 		A44699C1F7F29D12EBBA480C02821F55 /* SIEmptySegue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SIEmptySegue.m; sourceTree = "<group>"; };
@@ -284,7 +288,7 @@
 		AECED69DD57D940C838C5BA320E208B9 /* Pods-SIStoryboardI18N_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SIStoryboardI18N_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B0FF6133B7C9349A5FE41A13819E508C /* UIBarButtonItem+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+BlocksKit.h"; path = "BlocksKit/UIKit/UIBarButtonItem+BlocksKit.h"; sourceTree = "<group>"; };
 		B2D8D3CEBF156F531467B4894A26B177 /* NSObject+SIStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+SIStorage.h"; sourceTree = "<group>"; };
-		B39492160289D40D181D930387B1DBFD /* Pods_SIStoryboardI18N_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SIStoryboardI18N_Tests.framework; path = "Pods-SIStoryboardI18N_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B39492160289D40D181D930387B1DBFD /* Pods_SIStoryboardI18N_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SIStoryboardI18N_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CC8607E95AED34BC9D2DC6F186B53E /* Pods-SIStoryboardI18N_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SIStoryboardI18N_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		B77C8E97344E862A5BF2CE107560A1E3 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		B8AD6BB5D92851C515E78955B48E24A3 /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
@@ -314,12 +318,12 @@
 		DA3DDA894A0BA2E120200F96A7A41FA5 /* Pods-SIStoryboardI18N_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SIStoryboardI18N_Tests-dummy.m"; sourceTree = "<group>"; };
 		DB37ED45A2A4DC88B3F9C9CE969A69F6 /* BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BlocksKit.h; path = BlocksKit/BlocksKit.h; sourceTree = "<group>"; };
 		DC8D3EBB87BB98066AFC635EEE438AB2 /* NSTimer+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+BlocksKit.m"; path = "BlocksKit/Core/NSTimer+BlocksKit.m"; sourceTree = "<group>"; };
-		DF487CC1733F8089D63E6FF1FD34D488 /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
+		DF487CC1733F8089D63E6FF1FD34D488 /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
 		E15C4C928EF3EF9EED97C8E0ACA215C7 /* NSMutableArray+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+BlocksKit.h"; path = "BlocksKit/Core/NSMutableArray+BlocksKit.h"; sourceTree = "<group>"; };
 		E15CE8A60B0FF0DB5957ABFB2DC64568 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActionSheet+BlocksKit.h"; path = "BlocksKit/UIKit/UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
 		E394B577FD476431C83EF79CBFFF7BC9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E683C6F1A83AB4FD268DDD52D11E9D47 /* Pods-SIStoryboardI18N_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SIStoryboardI18N_Tests-resources.sh"; sourceTree = "<group>"; };
-		E8E98F3AD8577214D154E1F543B5BB68 /* SIStoryboardI18N.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SIStoryboardI18N.modulemap; sourceTree = "<group>"; };
+		E8E98F3AD8577214D154E1F543B5BB68 /* SIStoryboardI18N.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SIStoryboardI18N.modulemap; sourceTree = "<group>"; };
 		E8F48931D792D63C930346B645DBC3A8 /* UIControl+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIControl+BlocksKit.m"; path = "BlocksKit/UIKit/UIControl+BlocksKit.m"; sourceTree = "<group>"; };
 		E96E4614C0C0D135DBA02F878C947C61 /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
 		EAEF3C7E9B0D64F75DC46400FFCA1EBA /* BlocksKit+UIKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BlocksKit+UIKit.h"; path = "BlocksKit/BlocksKit+UIKit.h"; sourceTree = "<group>"; };
@@ -435,7 +439,6 @@
 			children = (
 				B8B84FDA6882E14E441F3A224A54DE24 /* Classes */,
 			);
-			name = Pod;
 			path = Pod;
 			sourceTree = "<group>";
 		};
@@ -460,7 +463,6 @@
 				3238C8E99999DAEC22A9E544D255994C /* Support Files */,
 				9DB5B9F676DD8B946632405C6DF6F5F6 /* SwiftSupport */,
 			);
-			name = FBSnapshotTestCase;
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
@@ -674,8 +676,9 @@
 				66D85B50C72FDD3FD52A92E24F65680D /* UIViewController+Navigation.m */,
 				EF42C60957E24CC4CE917D03490D392A /* UIViewController+StoryboardI18N.h */,
 				5598C4E7DD2E1C67C27838EB6E771EA6 /* UIViewController+StoryboardI18N.m */,
+				4D5EA007245C826D004C74EE /* NSObject+BKAssociatedObjects.h */,
+				4D5EA008245C826D004C74EE /* NSObject+BKAssociatedObjects.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -688,7 +691,6 @@
 				8325D9FD2A79DB7669B4E7EDF96A389D /* Support Files */,
 				82A382AE04D394CA002993FDEE837D35 /* UIKit */,
 			);
-			name = BlocksKit;
 			path = BlocksKit;
 			sourceTree = "<group>";
 		};
@@ -754,6 +756,7 @@
 				DA6D6FFE4AA36C6FF31476859E859A61 /* SILocalizationHelper.h in Headers */,
 				D272764895A3A7866E49E6AA31B6CB05 /* SIStoryboardI18N-umbrella.h in Headers */,
 				F9D38C4AD3E5E31B00211E919C44BDDE /* SIStoryboardI18N.h in Headers */,
+				4D5EA009245C826D004C74EE /* NSObject+BKAssociatedObjects.h in Headers */,
 				FD0D55BA7B2D6F6E95CD829226EBB831 /* UIView+StoryboardI18N.h in Headers */,
 				B6241A3140539B2DDA74CF2B3490B2E5 /* UIViewController+Navigation.h in Headers */,
 				985F00EF8E011F3673AEC8EAF3A199D5 /* UIViewController+StoryboardI18N.h in Headers */,
@@ -955,6 +958,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -1081,6 +1085,7 @@
 				88B27814179C90A0DCF88739A435BBE5 /* SIStoryboardI18N-dummy.m in Sources */,
 				D7B2E0581AE1A9B47690BA26AF809F12 /* SIStoryboardI18N.m in Sources */,
 				A2E02ABF36EA267882EE2939B5191A24 /* UIView+StoryboardI18N.m in Sources */,
+				4D5EA00A245C826D004C74EE /* NSObject+BKAssociatedObjects.m in Sources */,
 				D635FE454A887DCBA787E5A6E315D694 /* UIViewController+Navigation.m in Sources */,
 				7FE69409EC8DC7303C648E9689ED5EC7 /* UIViewController+StoryboardI18N.m in Sources */,
 			);

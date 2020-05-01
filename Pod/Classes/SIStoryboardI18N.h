@@ -60,6 +60,11 @@
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<NSString *> *searchTables;
 
 /**
+ Forces the bundle to use a specific locale
+ */
+@property(nonatomic, readwrite) NSString *forcedLocale;
+
+/**
  Unavailable. Please use sharedManager method
  */
 -(nonnull instancetype)init NS_UNAVAILABLE;

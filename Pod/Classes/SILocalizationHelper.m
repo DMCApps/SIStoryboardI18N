@@ -59,19 +59,23 @@ static NSMutableDictionary *languageBundles;
         key = [key substringFromIndex:3];
     }
     
-    NSBundle *bundle = [SILocalizationHelper si_findBundleForPreferredLanguage];
-    
-    __block NSString *translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
-    
-    if (!translated || translated.length == 0 || [key isEqualToString:translated]) {
-        [[SIStoryboardI18N sharedManager].searchTables enumerateObjectsUsingBlock:^(NSString * _Nonnull table, BOOL * _Nonnull stop) {
-            translated = NSLocalizedStringFromTableInBundle(key, table, bundle, @"StoryboardI18N");
-            if (![key isEqualToString:translated]) {
-                *stop = YES;
-            }
-        }];
-    }
-    
+    __block NSString *translated = @"";
+//    if ([[SIStoryboardI18N sharedManager] forcedLocale]) {
+//
+//    } else {
+        NSBundle *bundle = [SILocalizationHelper si_findBundleForPreferredLanguage];
+        
+        translated = NSLocalizedStringFromTableInBundle(key, nil, bundle, @"StoryboardI18N");
+        
+        if (!translated || translated.length == 0 || [key isEqualToString:translated]) {
+            [[SIStoryboardI18N sharedManager].searchTables enumerateObjectsUsingBlock:^(NSString * _Nonnull table, BOOL * _Nonnull stop) {
+                translated = NSLocalizedStringFromTableInBundle(key, table, bundle, @"StoryboardI18N");
+                if (![key isEqualToString:translated]) {
+                    *stop = YES;
+                }
+            }];
+        }
+//    }
     
     switch (transform) {
         default:
@@ -112,7 +116,6 @@ static NSMutableDictionary *languageBundles;
  *      nil if not found
  */
 + (NSBundle *)si_findBundleForPreferredLanguage {
-    
     // Find the first language code in the preferredLanguages that has a Localizable.strings file.
     NSArray *langCodes = [NSLocale preferredLanguages];
     NSString *langCode = nil;

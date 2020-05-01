@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import "SIStoryboardI18N.h"
-#import <BlocksKit/BlocksKit.h>
+#import "NSObject+BKAssociatedObjects.h"
 
 @implementation NSObject (SIStorage)
 
